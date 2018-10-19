@@ -41,12 +41,22 @@ d3.csv('halloween.csv').then(data => {
       .call(yAxis);
 
   // data has to be an array of objects bound to html elements with this pattern
-  graph.selectAll('.point')
+  /*graph.selectAll('.point')
       .data(data)
     .enter().append('circle')
       .attr('class', 'point')
       .attr('r', 5)
       .attr('cx', d => x(d.spookiness))
       .attr('cy', d => y(d.cuteness))
-      .style('fill', '#2fc3c7');
+      .style('fill', '#2fc3c7');*/
+
+  graph.selectAll('.image')
+      .data(data)
+    .enter().append('image')
+      .attr('class', 'image')
+      .attr('x', d => x(d.spookiness))
+      .attr('y', d => y(d.cuteness))
+      .attr('width', 45)
+      .attr('height', 45)
+      .attr('xlink:href', d => d.url);
 });
