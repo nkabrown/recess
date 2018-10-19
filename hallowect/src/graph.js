@@ -1,5 +1,5 @@
 // we will need to constrain our coordinate system to show axes and labels
-var margin = { top: 20, right: 20, bottom: 20, left: 20 };
+var margin = { top: 20, right: 20, bottom: 40, left: 40 };
 var width = 700 - margin.right - margin.left,
     height = 500 - margin.top - margin.bottom;
 
@@ -38,9 +38,24 @@ d3.csv('halloween.csv').then(data => {
 
   graph.append('g')
       .attr('class', 'y-axis')
-      .call(yAxis);
+      .call(yAxis)
+
+  graph.append('text')
+      .attr('text-anchor', 'end')
+      .attr('y', -40)
+      .attr('x', -(height / 2) + 50)
+      .attr('dy', '0.71em')
+      .attr('transform', 'rotate(-90)')
+      .text('Cuteness');
+
+  graph.append('text')
+      .attr('text-anchor', 'end')
+      .attr('y', height + 35)
+      .attr('x', width / 2 + 70)
+      .text('Spookiness');
 
   // data has to be an array of objects bound to html elements with this pattern
+  // first plot points
   /*graph.selectAll('.point')
       .data(data)
     .enter().append('circle')
@@ -50,12 +65,13 @@ d3.csv('halloween.csv').then(data => {
       .attr('cy', d => y(d.cuteness))
       .style('fill', '#2fc3c7');*/
 
+  // then plot halloween images
   graph.selectAll('.image')
       .data(data)
     .enter().append('image')
       .attr('class', 'image')
-      .attr('x', d => x(d.spookiness))
-      .attr('y', d => y(d.cuteness))
+      .attr('x', d => x(d.spookiness) - 22.5)
+      .attr('y', d => y(d.cuteness) - 22.5)
       .attr('width', 45)
       .attr('height', 45)
       .attr('xlink:href', d => d.url);
