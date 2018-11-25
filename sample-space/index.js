@@ -16,8 +16,8 @@ const layout = (mount, caseName) => {
       'left': () => { figure(str); interactivity(); }
     };
 
-    switchcase(horizontal)(caseName)('unknown layout')();
+    switchcase(horizontal)(caseName)(() => { console.error("unknown layout orientation: must be '%s' or '%s'", Object.keys(horizontal)[0], Object.keys(horizontal)[1]); })();
   });
 };
 
-layout('#mount', 'right');
+layout('#mount', 'left');
