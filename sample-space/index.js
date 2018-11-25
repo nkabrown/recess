@@ -1,8 +1,5 @@
 'use strict';
-
-// return result between 1 and number of sides on die
-// cannot roll a zero
-const roll = sides => Math.ceil(Math.random() * Math.floor(sides));
+import Die from '/Die.js';
 
 // helper function
 const switchcase = cases => key => unknown => key in cases ? cases[key] : unknown;
@@ -17,6 +14,21 @@ const layout = (mount, caseName) => {
     };
 
     switchcase(horizontal)(caseName)(() => { console.error("unknown layout orientation: must be '%s' or '%s'", Object.keys(horizontal)[0], Object.keys(horizontal)[1]); })();
+
+    d3.select('.dice-ui').append('div')
+       .attr('class', 'dice-container');
+
+    const die1 = new Die('.dice-container', 6, 0),
+          die2 = new Die('.dice-container', 6, 1);
+    die1.init(), die2.init();
+
+    d3.select('.dice-ui').insert('button', ':first-child')
+       .attr('id', 'roll-control')
+       .text('Roll Dice')
+       .on('click', () => {
+          d3.select('#die-0').text(die1.roll());
+          d3.select('#die-1').text(die2.roll());
+       });
   });
 };
 
