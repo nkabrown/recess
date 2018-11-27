@@ -1,5 +1,6 @@
 'use strict';
 import Die from '/Die.js';
+import SampleSpace from '/SampleSpace.js';
 
 // helper function
 const switchcase = cases => key => unknown => key in cases ? cases[key] : unknown;
@@ -29,6 +30,9 @@ const layout = (mount, caseName) => {
           d3.select('#die-0').text(die1.roll());
           d3.select('#die-1').text(die2.roll());
        });
+
+    const space = new SampleSpace('.sample-space');
+    space.init();
   });
 };
 
