@@ -25,7 +25,7 @@ export default class SampleSpace {
   tabulate() {
     const faces = [1, 2, 3, 4, 5, 6];
 
-    const matrix = faces.map((elem, i, obj) => obj.map(x => `${x}${obj[i]}`)).reverse();
+    const matrix = faces.map((elem, i, obj) => obj.map(x => [x, obj[i]])).reverse();
 
     return matrix;
   }
