@@ -3,6 +3,7 @@
 export default class SampleSpace {
   constructor(el) {
     this.mount = el;
+    this.faces = [1, 2, 3, 4, 5, 6];
     this.data = this.tabulate();
   }
 
@@ -20,17 +21,15 @@ export default class SampleSpace {
       .append('g')
         .attr('transform', `translate(${margin.left}, ${margin.top})`);
 
-    const faces = [1, 2, 3, 4, 5, 6];
-
     // define scale, input domain and output range
     const x = d3.scalePoint()
        .padding(0.5)
-       .domain(faces)
+       .domain(this.faces)
        .range([0, width]);
 
     const y = d3.scalePoint()
        .padding(0.5)
-       .domain(faces)
+       .domain(this.faces)
        .range([height, 0]);
 
     // functions that generate axes
@@ -46,13 +45,28 @@ export default class SampleSpace {
        .attr('class', 'y-axis')
        .call(yAxis);
 
-   graph.data(this.data);
+    const offset = y.step() / 2;
+
+    graph.selectAll('.data-band')
+       .data(this.data)
+     .enter().append('g')
+       .attr('class', 'data-band')
+       .attr('transform', (d, i) => `translate(0, ${i * y.step() + offset})`);
+
+    d3.selectAll('.data-band')
+       .each(function(row) {
+         d3.select(this).selectAll('.point')
+             .data(row)
+           .enter().append('circle')
+             .attr('class', 'point')
+             .attr('r', 2)
+             .attr('cx', d => x(d[0]))
+             .style('fill', '#444');
+       });
   }
 
   tabulate() {
-    const faces = [1, 2, 3, 4, 5, 6];
-
-    const matrix = faces.map((elem, i, obj) => obj.map(x => [x, obj[i]])).reverse();
+    const matrix = this.faces.map((elem, i, obj) => obj.map(x => [x, obj[i]])).reverse();
 
     return matrix;
   }
