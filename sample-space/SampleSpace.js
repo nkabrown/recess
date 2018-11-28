@@ -65,6 +65,15 @@ export default class SampleSpace {
        });
   }
 
+  event(roll) {
+    const points = d3.selectAll('.point');
+    points.each(function(d) {
+      const point = d3.select(this);
+      points.transition(200).attr('r', 2).style('fill', '#444');
+      d == roll ? point.transition().delay(200).duration(600).attr('r', 5).style('fill', '#f44336') : null;
+    });
+  }
+
   tabulate() {
     // three representations for pairs of coordinates
     // 2 character string

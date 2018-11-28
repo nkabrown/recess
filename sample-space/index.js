@@ -23,16 +23,20 @@ const layout = (mount, caseName) => {
           die2 = new Die('.dice-container', 6, 1);
     die1.init(), die2.init();
 
+    const space = new SampleSpace('.sample-space');
+    space.init();
+
     d3.select('.dice-ui').insert('button', ':first-child')
        .attr('id', 'roll-control')
        .text('Roll Dice')
        .on('click', () => {
-          d3.select('#die-0').text(die1.roll());
-          d3.select('#die-1').text(die2.roll());
-       });
+         const roll1 = die1.roll(),
+               roll2 = die2.roll();
 
-    const space = new SampleSpace('.sample-space');
-    space.init();
+         space.event(`${roll1}${roll2}`);
+         d3.select('#die-0').text(roll1);
+         d3.select('#die-1').text(roll2);
+       });
   });
 };
 
