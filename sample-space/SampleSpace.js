@@ -66,7 +66,15 @@ export default class SampleSpace {
   }
 
   tabulate() {
-    const matrix = this.faces.map((elem, i, obj) => obj.map(x => [x, obj[i]])).reverse();
+    // three representations for pairs of coordinates
+    // 2 character string
+    const matrix = this.faces.map((elem, i, obj) => obj.map(x => `${x}${obj[i]}`)).reverse();
+
+    // array with two elements
+    //const matrix = this.faces.map((elem, i, obj) => obj.map(x => [x, obj[i]])).reverse();
+
+    // object with x and y fields
+    // const matrix = this.faces.map((elem, i, obj) => obj.map(x => ({ x: x, y: obj[i] }))).reverse();
 
     return matrix;
   }
