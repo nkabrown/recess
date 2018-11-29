@@ -1,9 +1,7 @@
 'use strict';
+import { fail, switchcase } from '/utils.js';
 import Die from '/Die.js';
 import SampleSpace from '/SampleSpace.js';
-
-// helper function
-const switchcase = cases => key => unknown => key in cases ? cases[key] : unknown;
 
 const layout = (mount, caseName) => {
   d3.text('templates/figure.html').then(str => {
@@ -14,7 +12,7 @@ const layout = (mount, caseName) => {
       'left': () => { figure(str); interactivity(); }
     };
 
-    switchcase(horizontal)(caseName)(() => { console.error("unknown layout orientation: must be '%s' or '%s'", Object.keys(horizontal)[0], Object.keys(horizontal)[1]); })();
+    switchcase(horizontal)(caseName)(() => fail(`unknown layout orientation: must be ${Object.keys(horizontal)[0]} or ${Object.keys(horizontal)[1]}.`))();
 
     d3.select('.dice-ui').append('div')
        .attr('class', 'dice-container');
