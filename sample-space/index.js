@@ -28,6 +28,7 @@ const layout = (mount, caseName) => {
        .attr('id', 'roll-control')
        .text('Roll Dice')
        .on('click', () => {
+         eventItems.transition(300).style('color', '#444');
          const roll1 = die1.roll(),
                roll2 = die2.roll();
 
@@ -35,6 +36,27 @@ const layout = (mount, caseName) => {
          d3.select('#die-0').text(roll1);
          d3.select('#die-1').text(roll2);
        });
+
+    const list = d3.select('.dice-ui').append('div')
+        .attr('class', 'event-list');
+
+    list.append('p')
+       .attr('class', 'list-title')
+       .html('Events <span>(click to select)</span>');
+
+    list.append('ul');
+
+    list.select('ul').append('li')
+        .text('All points equal to the sum of dice roll')
+        .on('click', function() {
+          eventItems.transition(300).style('color', '#444');
+          const roll1 = d3.select('#die-0').text();
+          const roll2 = d3.select('#die-1').text();
+          space.sum(+roll1, +roll2);
+          d3.select(this).transition(300).style('color', '#f44336');
+        });;
+
+    const eventItems = d3.selectAll('.event-list ul > li');
   });
 };
 

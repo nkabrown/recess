@@ -8,7 +8,6 @@ export default class SampleSpace {
   }
 
   init() {
-
     // we will need to constrain our coordinate system to show axes and labels
     const margin = { top: 20, right: 20, bottom: 40, left: 40 },
           width = document.getElementsByClassName('sample-space')[0].clientWidth - 100 - margin.right - margin.left,
@@ -60,30 +59,41 @@ export default class SampleSpace {
            .enter().append('circle')
              .attr('class', 'point')
              .attr('r', 2)
-             .attr('cx', d => x(d[0]))
+             .attr('cx', d => x(d.x))
              .style('fill', '#444');
        });
   }
 
   event(roll) {
     const points = d3.selectAll('.point');
+    points.transition(200).attr('r', 2).style('fill', '#444');
     points.each(function(d) {
       const point = d3.select(this);
-      points.transition(200).attr('r', 2).style('fill', '#444');
-      d == roll ? point.transition().delay(200).duration(600).attr('r', 5).style('fill', '#f44336') : null;
+      `${d.x}${d.y}` == roll ? point.transition().delay(200).duration(600).attr('r', 5).style('fill', '#f44336') : null;
+    });
+  }
+
+  // the event of getting a total of x points in rolling two dice
+  sum(roll1, roll2) {
+    const points = d3.selectAll('.point');
+    points.transition(200).attr('r', 2).style('fill', '#444');
+    points.each(function(d) {
+      const sum = d.x + d.y;
+      const point = d3.select(this);
+      sum == (roll1 + roll2) ? point.transition().delay(200).duration(500).attr('r', 5).style('fill', '#f44336') : null;
     });
   }
 
   tabulate() {
     // three representations for pairs of coordinates
     // 2 character string
-    const matrix = this.faces.map((elem, i, obj) => obj.map(x => `${x}${obj[i]}`)).reverse();
+    //const matrix = this.faces.map((elem, i, obj) => obj.map(x => `${x}${obj[i]}`)).reverse();
 
     // array with two elements
     //const matrix = this.faces.map((elem, i, obj) => obj.map(x => [x, obj[i]])).reverse();
 
     // object with x and y fields
-    // const matrix = this.faces.map((elem, i, obj) => obj.map(x => ({ x: x, y: obj[i] }))).reverse();
+    const matrix = this.faces.map((elem, i, obj) => obj.map(x => ({ x: x, y: obj[i] }))).reverse();
 
     return matrix;
   }
