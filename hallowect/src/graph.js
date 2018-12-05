@@ -1,7 +1,7 @@
 // we will need to constrain our coordinate system to show axes and labels
 var margin = { top: 20, right: 20, bottom: 40, left: 40 };
-var width = 700 - margin.right - margin.left,
-    height = 500 - margin.top - margin.bottom;
+var width = 525 - margin.right - margin.left,
+    height = 525 - margin.top - margin.bottom;
 
 // define a container and coordinate system for our visualization
 var graph = d3.select('#mount').append('svg')
@@ -15,21 +15,18 @@ var graph = d3.select('#mount').append('svg')
 d3.csv('halloween.csv').then(data => {
   console.log(data); 
 
-  // explain scales for our x and y axes
-  // define scale and output range
+  // define scale with input domain and output range
   var x = d3.scaleLinear()
+       .domain([0, 10])
        .range([0, width]);
 
   var y = d3.scaleLinear()
+       .domain([0, 10])
        .range([height, 0]);
 
   // functions that generate axes
   var xAxis = d3.axisBottom(x);
   var yAxis = d3.axisLeft(y);
-
-  // domain of input values to be mapped to output range
-  x.domain([0, 10]);
-  y.domain([0, 10]);
 
   graph.append('g')
       .attr('class', 'x-axis')
@@ -42,9 +39,8 @@ d3.csv('halloween.csv').then(data => {
 
   graph.append('text')
       .attr('text-anchor', 'end')
-      .attr('y', -40)
+      .attr('y', -28)
       .attr('x', -(height / 2) + 50)
-      .attr('dy', '0.71em')
       .attr('transform', 'rotate(-90)')
       .text('Cuteness');
 
