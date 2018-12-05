@@ -1,9 +1,9 @@
 'use strict';
 
 export default class SampleSpace {
-  constructor(el) {
+  constructor(el, sides) {
     this.mount = el;
-    this.faces = [1, 2, 3, 4, 5, 6];
+    this.sides = sides;
     this.data = this.tabulate();
   }
 
@@ -85,6 +85,7 @@ export default class SampleSpace {
   }
 
   tabulate() {
+    this.faces = [...Array(this.sides).keys()].map(x => x + 1);
     // three representations for pairs of coordinates
     // 2 character string
     //const matrix = this.faces.map((elem, i, obj) => obj.map(x => `${x}${obj[i]}`)).reverse();

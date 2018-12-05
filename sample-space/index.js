@@ -14,14 +14,16 @@ const layout = (mount, caseName) => {
 
     switchcase(horizontal)(caseName)(() => fail(`unknown layout orientation: must be ${Object.keys(horizontal)[0]} or ${Object.keys(horizontal)[1]}.`))();
 
+    const sides = 6;
+
     d3.select('.dice-ui').append('div')
        .attr('class', 'dice-container');
 
-    const die1 = new Die('.dice-container', 6, 0),
-          die2 = new Die('.dice-container', 6, 1);
+    const die1 = new Die('.dice-container', sides, 0),
+          die2 = new Die('.dice-container', sides, 1);
     die1.init(), die2.init();
 
-    const space = new SampleSpace('.sample-space');
+    const space = new SampleSpace('.sample-space', sides);
     space.init();
 
     d3.select('.dice-ui').insert('button', ':first-child')
@@ -32,6 +34,9 @@ const layout = (mount, caseName) => {
          const roll1 = die1.roll(),
                roll2 = die2.roll();
 
+         // should not pass these as a single string
+         // given a 12 sided die how can we parse this 112 ?
+         // 11 2 or 1 12
          space.event(`${roll1}${roll2}`);
          d3.select('#die-0').text(roll1);
          d3.select('#die-1').text(roll2);
