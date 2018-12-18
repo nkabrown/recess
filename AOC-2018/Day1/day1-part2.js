@@ -7,7 +7,7 @@ fs.readFile('day1-input.txt', 'utf-8', (error, str) => {
   const array = str.replace(/\+/g, '').split(/\n/).map(x => parseInt(x));
 
   // create an empty Set data structure to store seen sums
-  // just as in mathematics "any two objects which appear as members
+  // just as in set theory "any two objects which appear as members
   // of the same set are different", i.e. duplicates are not allowed.
   const set = new Set();
 
