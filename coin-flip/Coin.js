@@ -14,10 +14,9 @@ export default class Coin {
         .style('height', '100px')
       .append('img')
         .attr('src', 'assets/heads.svg');
-
   }
 
   flip() {
-
+    return Math.random() >= 0.5 ? true : false;
   }
 }

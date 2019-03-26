@@ -31,6 +31,7 @@ body {
 
 #coin-0,
 #coin-1 {
+  margin-bottom: 25px;
 }
 
 #coin-0 img,
