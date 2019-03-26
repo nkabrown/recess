@@ -5,3 +5,36 @@ body {
   padding: 0;
   margin: 0;
 }
+
+#mount {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+
+.coin-ui,
+.sample-space {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 50%;
+}
+
+.coin-holder {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 300px;
+}
+
+#coin-0,
+#coin-1 {
+}
+
+#coin-0 img,
+#coin-1 img {
+  width: 100px;
+  height: 100px;
+}

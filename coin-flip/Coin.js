@@ -8,6 +8,16 @@ export default class Coin {
 
   init() {
     d3.select(this.mount).append('div')
-        .attr('class', 'coin');
+        .attr('class', 'coin')
+        .attr('id', `coin-${this.identity}`)
+        .style('width', '100px')
+        .style('height', '100px')
+      .append('img')
+        .attr('src', 'assets/heads.svg');
+
+  }
+
+  flip() {
+
   }
 }
