@@ -1,5 +1,6 @@
 'use strict';
 import Coin from './Coin.js';
+import SampleSpace from './SampleSpace.js';
 
 d3.select('#mount').append('div')
     .attr('class', 'coin-ui')
@@ -19,3 +20,6 @@ d3.select('.coin-ui').append('button')
 
 d3.select('#mount').append('div')
     .attr('class', 'sample-space');
+
+const space = new SampleSpace('.sample-space');
+space.init();
