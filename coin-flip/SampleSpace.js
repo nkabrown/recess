@@ -31,7 +31,7 @@ export default class SampleSpace {
        .attr('r', 20)
        .attr('cx', margin.left + 15)
        .attr('cy', (height/2) - 40)
-       .style('fill', '#4c5f68');
+       .style('fill', '#ee4154');
 
     svg.append('text')
         .attr('x', margin.left - 7)
@@ -50,5 +50,12 @@ export default class SampleSpace {
        .attr('y', (height/2) + 20)
        .style('font-family', 'Lato')
        .text('TAILS');
+  }
+
+  plot(event) {
+    const head = d3.select('svg circle:first-of-type');
+    const tail = d3.select('svg circle:last-of-type');
+    d3.selectAll('svg circle').transition(200).style('fill', '#4c5f68');
+    event ? head.transition(400).style('fill', '#ee4154') : tail.transition(400).style('fill', '#ee4154');
   }
 }
