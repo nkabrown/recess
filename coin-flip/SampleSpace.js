@@ -33,10 +33,22 @@ export default class SampleSpace {
        .attr('cy', (height/2) - 40)
        .style('fill', '#4c5f68');
 
+    svg.append('text')
+        .attr('x', margin.left - 7)
+        .attr('y', (height/2) + 20)
+        .style('font-family', 'Lato')
+        .text('HEADS');
+
     svg.append('circle')
        .attr('r', 20)
        .attr('cx', width - margin.right - 30)
        .attr('cy', (height/2) - 40)
        .style('fill', '#4c5f68');
+
+    svg.append('text')
+       .attr('x', width - margin.right - 52)
+       .attr('y', (height/2) + 20)
+       .style('font-family', 'Lato')
+       .text('TAILS');
   }
 }
