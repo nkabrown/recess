@@ -3,6 +3,8 @@
 export default class SampleSpace {
   constructor(el) {
     this.mount = el;
+    this.headscount = 0;
+    this.tailscount = 0;
   }
 
   init() {
@@ -39,6 +41,13 @@ export default class SampleSpace {
         .style('font-family', 'Lato')
         .text('HEADS');
 
+    svg.append('text')
+       .attr('id', 'heads-counter')
+       .attr('x', margin.left + 12)
+       .attr('y', (height/2) + 50)
+       .style('font-family', 'Lato')
+       .text(`${this.headscount}`);
+
     svg.append('circle')
        .attr('r', 20)
        .attr('cx', width - margin.right - 30)
@@ -50,12 +59,19 @@ export default class SampleSpace {
        .attr('y', (height/2) + 20)
        .style('font-family', 'Lato')
        .text('TAILS');
+
+    svg.append('text')
+       .attr('id', 'tails-counter')
+       .attr('x', width - margin.right - 35)
+       .attr('y', (height/2) + 50)
+       .style('font-family', 'Lato')
+       .text(`${this.tailscount}`);
   }
 
   plot(event) {
     const head = d3.select('svg circle:first-of-type');
     const tail = d3.select('svg circle:last-of-type');
     d3.selectAll('svg circle').transition(200).style('fill', '#4c5f68');
-    event ? head.transition(400).style('fill', '#ee4154') : tail.transition(400).style('fill', '#ee4154');
+    event ? (head.transition(400).style('fill', '#ee4154'), d3.select('#heads-counter').text(`${this.headscount += 1}`)) : (tail.transition(400).style('fill', '#ee4154'), d3.select('#tails-counter').text(`${this.tailscount += 1}`));
   }
 }
