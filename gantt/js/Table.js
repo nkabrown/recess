@@ -1,11 +1,9 @@
 'use strict';
 
-console.log('table smoketest');
-
 export default class Table {
   constructor(el, d, w, h) {
     this.mount = el;
-    this.data = d;
+    this.data = d.reverse();
     this.width = w;
     this.height = h;
   }

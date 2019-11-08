@@ -27,6 +27,7 @@ const data = channels.reduce((acc, curr) => (start = Math.floor(Math.random() * 
 console.log(data);
 
 const container = document.getElementsByClassName('chart-container')[0];
+const margins = {top: 30.5, left: 60, bottom: 0, right: 0};
 
-new Gantt('.chart-container', data, container.clientWidth * .70, channels.length * 32 + 35).init();
+new Gantt('.chart-container', data, margins, container.clientWidth * .70, channels.length * 32 + 35, quarter).init();
 new Table('.chart-container', data, container.clientWidth * .30, channels.length * 32 + 35).init();

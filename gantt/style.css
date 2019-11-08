@@ -22,5 +22,71 @@ main {
   display: flex;
   flex-direction: row;
   position: relative;
+  width: 80%;
   height: 100%;
+}
+
+svg {
+  margin-top: 7px;
+  border-top: 1px #ccc solid;
+}
+
+.x-axis path {
+  stroke: #ccc;
+  stroke-width: 2px;
+}
+
+.y-axis path {
+  display: none;
+}
+
+.x-axis > .tick:last-of-type {
+  display: none;
+}
+
+.x-axis > .tick > line {
+  stroke: #ccc;
+}
+
+.y-axis > .tick > line {
+  display: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-color: grey;
+  font-family: Verdana, Geneva, sans-serif;
+  margin-top: 7px;
+  margin-bottom: 25px;
+}
+
+thead tr th {
+  background: #fff none;
+  border: 1px solid #ccc;
+  border-bottom-width: 2px;
+  padding: 7px 10px;
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 12px;
+  text-align: left;
+  text-transform: capitalize;
+  color: #333;
+}
+
+tbody tr td {
+  background-color: #fff;
+  padding: 3px 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 12px;
+  transition: .5s;
+  text-transform: capitalize;
+}
+
+tbody tr:nth-child(even) td {
+  background-color: #e3e3e3;
+}
+
+tbody tr:nth-child(even):hover td,
+tbody tr:nth-child(odd):hover td {
+  background-color: #e8e8e8;
 }
