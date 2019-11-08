@@ -6,7 +6,7 @@ import Table from './Table.js';
 import {Right, Left} from './types.js';
 
 // generate testing data
-const channels = ['Channel 1', 'Channel 2', 'Channel 3', 'Channel 4', 'Channel 5', 'Channel 6', 'Channel 7', 'Channel 8'];
+const channels = ['Channel 1', 'Channel 2', 'Channel 3', 'Channel 4', 'Channel 5', 'Channel 6', 'Channel 7'];
 // generate one quarters worth of days
 const quarter =  d3.timeDays(new Date(2019, 6), new Date(2019, 8, 31));
 let start, lift;
@@ -16,7 +16,7 @@ const endDate = (s, qtr) => {
   return end != undefined ? Right(end) : Left(null);
 };
 
-const data = channels.reduce((acc, curr) => (start = Math.floor(Math.random() * quarter.length) - 1,
+const data = channels.reduce((acc, curr) => (start = Math.floor(Math.random() * quarter.length),
                                              acc.push({
                                                channel: curr,
                                                start: quarter[start],
@@ -27,7 +27,7 @@ const data = channels.reduce((acc, curr) => (start = Math.floor(Math.random() * 
                                                  ROI: Math.floor(Math.random() * 100),
                                                  avg: (Math.random() * 50).toFixed(2),
                                                  lift: (lift = Math.floor(Math.random() * 10),
-                                                       lift === 0 ? lift : `+${lift}`),
+                                                        lift === 0 ? lift : `+${lift}`),
                                                  growth: (Math.random() * 100).toFixed(2)
                                                }
                                              }), acc), []);
