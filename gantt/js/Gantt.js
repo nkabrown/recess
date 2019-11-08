@@ -37,5 +37,29 @@ export default class Gantt {
     d3.selectAll('.x-axis text')
         .style('font-size', '12px')
         .attr('transform', 'translate(102, 28)');
+
+    graph.selectAll('.channel')
+        .data(this.data.reverse())
+      .enter().append('g')
+        .attr('class', 'channel')
+        .attr('transform', d => `translate(0, ${y(d.channel) - 1})`);
+
+    d3.selectAll('.channel').each(function(d, i) {
+      d3.select(this)
+          .append('rect')
+          .attr('class', 'gutter')
+          .attr('height', 28)
+          .attr('width', x(new Date(2019, 8, 31)))
+          .attr('fill', i % 2 != 0 ? '#e3e3e3' : 'transparent');
+
+      d3.select(this)
+          .append('rect')
+          .attr('class', 'period')
+          .attr('height', 8)
+          .attr('width', d => x(d.end) - x(d.start))
+          .attr('x', d => x(d.start))
+          .attr('fill', '#0269a4')
+          .attr('transform', 'translate(0, 13)');
+    });
   }
 }

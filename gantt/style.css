@@ -60,6 +60,10 @@ table {
   margin-bottom: 25px;
 }
 
+tbody tr {
+  height: 32;
+}
+
 thead tr th {
   background: #fff none;
   border: 1px solid #ccc;
