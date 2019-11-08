@@ -25,3 +25,8 @@ const data = channels.reduce((acc, curr) => (start = Math.floor(Math.random() * 
                                              }), acc), []);
 
 console.log(data);
+
+const container = document.getElementsByClassName('chart-container')[0];
+
+new Gantt('.chart-container', data, container.clientWidth * .70, channels.length * 32 + 35).init();
+new Table('.chart-container', data, container.clientWidth * .30, channels.length * 32 + 35).init();

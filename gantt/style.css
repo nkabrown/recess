@@ -22,6 +22,5 @@ main {
   display: flex;
   flex-direction: row;
   position: relative;
-  width: 80%;
   height: 100%;
 }

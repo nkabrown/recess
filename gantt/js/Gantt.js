@@ -12,6 +12,9 @@ export default class Gantt {
   }
 
   init() {
-
+    const graph = d3.select(this.mount)
+        .append('svg')
+        .attr('width', this.width)
+        .attr('height', this.height);
   }
 }
