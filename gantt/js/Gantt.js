@@ -56,7 +56,7 @@ export default class Gantt {
           .append('rect')
           .attr('class', 'period')
           .attr('height', 8)
-          .attr('width', d => x(d.end) - x(d.start))
+          .attr('width', d => x(d.end) - x(d.start) > 0 ? x(d.end) - x(d.start) : 5.89)
           .attr('x', d => x(d.start))
           .attr('fill', '#0269a4')
           .attr('transform', 'translate(0, 13)');
