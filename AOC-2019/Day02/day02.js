@@ -17,6 +17,37 @@ fs.readFile('input.txt', 'utf-8', (error, str) => {
     name
   });
 
+  const runtime = (computer) => {
+    let run = true;
+
+    const lookup = (address) => computer.memory[address];
+    const write = (address, value) => computer.memory[address] = value;
+    const updateHead = () => computer.pointer = computer.pointer + 4;
+
+    const instructions = {
+      1: (fst, snd, store) => (write(lookup(store), (lookup(lookup(fst)) + lookup(lookup(snd)))), updateHead()),
+      2: (fst, snd, store) => (write(lookup(store), (lookup(lookup(fst)) * lookup(lookup(snd)))), updateHead()),
+      99: () => run = false
+    };
+
+    // initialize computer with instructions
+    computer.cpu = switchcase(instructions);
+
+    while(run) {
+      computer.cpu(lookup(computer.pointer))(computer.pointer + 1, computer.pointer + 2, computer.pointer + 3);
+    }
+
+    // solution to part 1
+    console.log(computer.memory[0]);
+
+    // solution to part 2
+    computer.memory[0] === 19690720 ? console.log('Answer is ', 100 * computer.memory[1] + computer.memory[2]) : null;
+  };
+
+  const program = initial.map(x => x);
+  program[1] = 12, program[2] = 2;
+  runtime(Computer(program, 0, {}, 'intcodes'));
+
   const range = [...Array(100).keys()];
 
   // calculate the cartesian product
@@ -32,31 +63,9 @@ fs.readFile('input.txt', 'utf-8', (error, str) => {
 
   const product = cartesianProduct(range, range);
 
-  const environment = (computer) => {
-    let run = true;
-
-    const lookup = (address, memory) => memory[address];
-    const write = (address, memory, value) => computer.memory[address] = value;
-    const updateHead = (pointer) => computer.pointer = pointer + 4;
-
-    const instructions = {
-      1: (fst, snd, store) => (write(lookup(store, computer.memory), computer.memory, (lookup(lookup(fst, computer.memory), computer.memory) + lookup(lookup(snd, computer.memory), computer.memory))), updateHead(computer.pointer)),
-      2: (fst, snd, store) => (write(lookup(store, computer.memory), computer.memory, (lookup(lookup(fst, computer.memory), computer.memory) * lookup(lookup(snd, computer.memory), computer.memory))), updateHead(computer.pointer)),
-      99: () => run = false
-    };
-
-    // initialize computer with instructions
-    computer.cpu = switchcase(instructions);
-
-    while(run) {
-      computer.cpu(lookup(computer.pointer, computer.memory))(computer.pointer + 1, computer.pointer + 2, computer.pointer + 3);
-    }
-    computer.memory[0] === 19690720 ? console.log('Answer is ', 100 * computer.memory[1] + computer.memory[2]) : null;
-  };
-
   product.forEach((p, i) => {
     const program = initial.map(x => x);
     program[1] = p[0], program[2] = p[1];
-    environment(Computer(program, 0, {}, `intcodes-${p[0]}-${p[1]}`));
+    runtime(Computer(program, 0, {}, `intcodes-${p[0]}-${p[1]}`));
   });
 });
