@@ -18,12 +18,13 @@ fs.readFile('input.txt', 'utf-8', (error, str) => {
   let path1 = [];
   let path2 = [];
 
+  // to improve performance represent the coordinates as strings instead of 2 place arrays
   // create set of coordinates for each path segment
   const directions = {
-    R: (dist, cord, path) => [...Array(dist).keys()].forEach(n => (cord[0] += 1, path.push(cord.map(x => x)))),
-    L: (dist, cord, path) => [...Array(dist).keys()].forEach(n => (cord[0] -= 1, path.push(cord.map(x => x)))),
-    U: (dist, cord, path) => [...Array(dist).keys()].forEach(n => (cord[1] += 1, path.push(cord.map(x => x)))),
-    D: (dist, cord, path) => [...Array(dist).keys()].forEach(n => (cord[1] -= 1, path.push(cord.map(x => x))))
+    R: (dist, cord, path) => [...Array(dist).keys()].forEach(n => (cord[0] += 1, path.push(`X${cord[0]}Y${cord[1]}`))),
+    L: (dist, cord, path) => [...Array(dist).keys()].forEach(n => (cord[0] -= 1, path.push(`X${cord[0]}Y${cord[1]}`))),
+    U: (dist, cord, path) => [...Array(dist).keys()].forEach(n => (cord[1] += 1, path.push(`X${cord[0]}Y${cord[1]}`))),
+    D: (dist, cord, path) => [...Array(dist).keys()].forEach(n => (cord[1] -= 1, path.push(`X${cord[0]}Y${cord[1]}`)))
   };
 
   // collect coordinates of points visited in the plane
@@ -41,30 +42,34 @@ fs.readFile('input.txt', 'utf-8', (error, str) => {
 
   console.log(path1, path2);
 
-  // find the sets of coordinate points visited by both points -- VERY SLOW
-  const intersections = [];
-  path1.forEach(cordA => {
-    path2.forEach(cordB => {
-      cordA[0] === cordB[0] ? (cordA[1] === cordB[1] ? intersections.push(cordA) : null) : null;
-    }); 
-  });
+  // remove duplicates by creating sets
+  const A = new Set(path1);
+  const B = new Set(path2);
+  // find the intersection of both sets of points A ∩ B = C
+  const C = new Set([...A].filter(x => B.has(x)));
+  const intersections = [...C];
   console.log(intersections);
 
-  // intersecting coordinates found by my input
-  //const intersections = [[ 225, 0 ],      [ 1009, 16 ],    [ 963, 286 ], [ 835, 286 ],    [ 789, 286 ],    [ 638, 318 ], [ 638, 435 ],    [ 638, 540 ],    [ 1010, 804 ], [ 1010, 435 ],   [ 1138, 384 ],   [ 1321, 804 ], [ 1141, 804 ],   [ 538, 16 ],     [ 538, 24 ], [ 538, 318 ],    [ 789, 370 ],    [ 835, 370 ], [ 1138, 370 ],   [ 1426, 302 ],   [ 1672, 342 ], [ 1672, 804 ],   [ 1139, 804 ],   [ 835, 591 ], [ -102, 883 ],   [ 80, 694 ],     [ 80, 627 ], [ 347, 347 ],    [ 721, 318 ],    [ 721, 24 ], [ 721, 16 ],     [ 938, 16 ],     [ 938, 77 ], [ 835, 192 ],    [ 789, 192 ],    [ -478, 514 ], [ -571, 326 ],   [ -571, 268 ],   [ -628, 2 ], [ -1545, -161 ], [ -1397, -218 ], [ -1610, 247 ], [ -2229, 932 ],  [ -2738, 975 ],  [ -2383, 1665 ], [ -2738, 1295 ]];
-
   // calculate the Manhattan distance for each set of coordinates -- |p1 - q1| + |p2 - q2|
-  const taxicabDistance = (y1, y2) => Math.abs(0 - y1) + Math.abs(0 - y2);
+  const taxicabDistance = (cord) => Math.abs(0 - cord[0]) + Math.abs(0 - cord[1]);
+
+  // cast representation of coordinates as strings back into 2 place array
+  const unpack = str => {
+    const index = str.indexOf('Y');
+    const x = parseInt(str.substring(1, index));
+    const y = parseInt(str.substring(index + 1,));
+    return [x, y];
+  };
 
   let minDistance = 5000000;
-  intersections.forEach(cord => minDistance > taxicabDistance(cord[0], cord[1]) ? minDistance = taxicabDistance(cord[0], cord[1]) : null);
+  intersections.forEach(cord => minDistance > taxicabDistance(unpack(cord)) ? minDistance = taxicabDistance(unpack(cord)) : null);
 
   // solution to part 1
   console.log(minDistance);
 
   // calculate the sum of steps it takes both wires to reach an intersection point the first time
   // test for matching coordinates
-  const match = (cordA, cordB) => cordA[0] === cordB[0] && cordA[1] === cordB[1];
+  const match = (cordA, cordB) => cordA === cordB;
 
   const sums = [];
   intersections.forEach(int => {
