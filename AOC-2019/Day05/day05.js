@@ -90,6 +90,7 @@ fs.readFile('input.txt', 'utf-8', (error, str) => {
 
     const execution = () => {
       while(run) {
+        const modes = computer.load(lookup(computer.pointer));
         computer.cpu(computer.load(lookup(computer.pointer))[0])(modes);
       }
     };
