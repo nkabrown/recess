@@ -13,8 +13,10 @@ fs.readFile('input.txt', 'utf-8', (error, str) => {
   //const test = '1,1,1,4,99,5,6,0,99';
 
   // output whatever value you get as input
-  const test = '3,0,4,0,99';
-  const program = test.split(',').map(x => parseInt(x));
+  //const test = '3,0,4,0,99';
+  //const test = '1002,4,3,4,33';
+  //const test = '1101,100,-1,4,0';
+  const program = str.split(',').map(x => parseInt(x));
 
   const switchcase = cases => key => key in cases ? cases[key] : 'ERROR: key not found';
 
@@ -42,18 +44,45 @@ fs.readFile('input.txt', 'utf-8', (error, str) => {
 
     // dynamically construct parameter inputs for specific opcode instructions
     // returning an array of positions in the program
-    const valuepicker = n => {
+    const valuespicker = n => {
       const params = [...Array(n).keys()].map(i => computer.pointer + (i+ 1));
       return params;
     }
 
+    const length = n => {
+      return +n === 1 || +n === 2 ? 5 : (+n === 3 || +n === 4 ? 3 : 0);
+    };
+
+    // returns an array of opcode and parameter modes
+    const deconstruct = inst => {
+      let str = inst.toString();
+      const opcode = str.length > 1 ? str.substring(str.length - 2,) : str.padStart(2, '0');
+      const l = length(opcode);
+      str.length === l ? null : str = str.padStart(l, '0');
+      const modes = str.substring(0, str.length - 2).split('');
+      modes.reverse().unshift(opcode);
+      const instructs = modes.map(x => parseInt(x));
+      return instructs;
+    };
+
+    computer.load = deconstruct;
+
+    // parameter modes
+    const modes = {
+      0: x => lookup(x),
+      1: (x) => x
+    };
+
+    // initialize computer with parameter modes
+    computer.mode = switchcase(modes);
+
     let params;
     const instructions = {
-      1: () => (params = valuepicker(3), write(lookup(params[2]), (lookup(lookup(params[0])) + lookup(lookup(params[1]))), updateHead(params.length + 1))),
-      2: () => (params = valuepicker(3), write(lookup(params[2]), (lookup(lookup(params[0])) * lookup(lookup(params[1]))), updateHead(params.length + 1))),
-      3: () => reader.prompt(),
-      4: () => (params = valuepicker(1), read(params[0]), updateHead(params.length + 1)),
-      99: () => run = false
+      1: (modes) => (params = valuespicker(3), write(computer.mode(modes[3])(params[2]), (computer.mode(modes[1])(lookup(params[0])) + computer.mode(modes[2])(lookup(params[1])))), updateHead(params.length + 1)),
+      2: (modes) => (params = valuespicker(3), write(computer.mode(modes[3])(params[2]), (computer.mode(modes[1])(lookup(params[0])) * computer.mode(modes[2])(lookup(params[1])))), updateHead(params.length + 1)),
+      3: (modes) => (reader.prompt(), updateHead(2)),
+      4: (modes) => (params = valuespicker(1), read(params[0]), updateHead(params.length + 1)),
+      99: (modes) => run = false
     };
 
     // initialize computer with instructions
@@ -61,7 +90,7 @@ fs.readFile('input.txt', 'utf-8', (error, str) => {
 
     const execution = () => {
       while(run) {
-        computer.cpu(lookup(computer.pointer))();
+        computer.cpu(computer.load(lookup(computer.pointer))[0])(modes);
       }
     };
 
@@ -69,7 +98,6 @@ fs.readFile('input.txt', 'utf-8', (error, str) => {
 
     reader.on('line', input => {
       write(computer.memory[1], +input);
-      updateHead(2);
       execution();
       reader.close()
     });
