@@ -2,8 +2,7 @@
  * Simple Graph
  * 
  * Simple graphs do not have self-loops or multi-edges
- * A constructor for undirected graphs for now
- * Though direction is sort of already encoded into edge symbols
+ * Note: direction is already encoded into edge symbols
  */
 import Graph from './Graph.js';
 
@@ -37,5 +36,17 @@ export default class SimpleGraph extends Graph {
   // vertex -> set of neighbors
   endpts(v) {
     return this.table[v];
+  }
+
+  // return the neighborhood of a vertex in the graph
+  // vertex -> set of neighbors (open) or join of set of neighbors with vertex (closed)
+  neighborhood(v, type, neighborhood = []) {
+    type === 'open'
+      ? neighborhood = this.endpts(v).map(v => v)
+      : (neighborhood = this.endpts(v).map(v => v),
+        neighborhood.push(v),
+        neighborhood);
+
+    return neighborhood
   }
 }

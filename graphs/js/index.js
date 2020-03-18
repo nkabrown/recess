@@ -7,5 +7,8 @@ G.init();
 const H = new SimpleGraph();
 
 console.log(G);
-console.log(G.endpts('p'));
+console.log(G.endpts('q'));
 console.log(H);
+
+console.log(G.neighborhood('q', 'open'));
+console.log(G.neighborhood('q', 'closed'));
