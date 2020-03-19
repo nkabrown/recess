@@ -9,6 +9,8 @@ const H = new SimpleGraph();
 console.log(G);
 console.log(G.endpts('q'));
 console.log(H);
+console.log(H.isEmpty());
+console.log(G.isEmpty());
 
 console.log(G.neighborhood('q', 'open'));
 console.log(G.neighborhood('q', 'closed'));

@@ -20,6 +20,8 @@ export default class SimpleGraph extends Graph {
 
   // construct adjacency table
   tabulate() {
+    // reset table
+    this.table = {};
     const pairs = this.edges.map(edge => edge.split(''));
     let arr;
     const writeRow = (key, val) => this.table[key] !== undefined 
@@ -30,6 +32,15 @@ export default class SimpleGraph extends Graph {
       const a = pairing[0], b = pairing[1]; 
       writeRow(a, b), writeRow(b, a);
     });
+  }
+
+  storeVertex(v) {
+    this.vertices.push(v);
+  }
+
+  joinEndpts(a, b) {
+    this.edges.push(`${a}${b}`);
+    this.tabulate();
   }
 
   // adjacency table lookup

@@ -9,4 +9,8 @@ export default class Graph {
     this.vertices = [];
     this.edges = [];
   }
+
+  isEmpty() {
+    return this.vertices.length > 0 ? false : true;
+  }
 }
