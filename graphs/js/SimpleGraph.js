@@ -60,4 +60,12 @@ export default class SimpleGraph extends Graph {
 
     return neighborhood
   }
+
+  // return non-increasing list of degrees
+  degreeSequence() {
+    const sequence = Object.values(this.table)
+                           .map(v => v.length)
+                           .sort((a,b) => b - a);
+    return sequence;
+  }
 }

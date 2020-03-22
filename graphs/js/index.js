@@ -14,3 +14,5 @@ console.log(G.isEmpty());
 
 console.log(G.neighborhood('q', 'open'));
 console.log(G.neighborhood('q', 'closed'));
+
+console.log(G.degreeSequence());
