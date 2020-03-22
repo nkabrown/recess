@@ -1,0 +1,10 @@
+{
+  "devDependencies": {
+    "@babel/preset-env": "^7.9.0",
+    "babel-tape-runner": "^3.0.0",
+    "tape": "^4.13.2"
+  },
+  "scripts": {
+    "test": "babel-tape-runner __tests__/*.js"
+  }
+}
