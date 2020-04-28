@@ -1,0 +1,41 @@
+html,
+body {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  font-family: "Open Sans", sans-serif;
+  overflow: hidden;
+}
+
+header {
+  width: 100%;
+  height: 20%;
+  padding-left: 55px;
+}
+
+main {
+  width: 100%;
+  height: 80%;
+}
+
+.outer-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.content {
+  min-width: 100%;
+  width: 100%;
+  height: 100%;
+  background-color: #e3e4e6;
+  transition: all 3s ease;
+}
+
+.image-drawer {
+  width: 100%;
+  height: 100%;
+  background-color: #ffe6f7;
+}
