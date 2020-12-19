@@ -24,7 +24,22 @@ fs.readFile('expense-report.txt', 'utf-8', (error, str) => {
     return null;
   };
 
-  const multiply = ([a, b]) => a * b;
+  // Given a goal sum and a set of numbers to pick from finds the 3 numbers that add to goal sum.
+  const findTriple = (d) => (set) => {
+    for (const a of set.values()) {
+      let b = d - a;
+      // find pair that sum to difference from goal sum.
+      if (findPair(b)(set))
+        return [a, ...findPair(b)(set)];
+    }
+    return null;
+  };
 
+  const multiply = ([a, b]) => a * b;
+  const multiplyTriple = ([a, b, c]) => a * b * c;
+
+  // Part 01 – (x + y = z) -> (x * y)
   console.log(multiply(findPair(2020)(entries)));
+  // Part 02 – (a + b + c = d) -> (a * b * c)
+  console.log(multiplyTriple(findTriple(2020)(entries)));
 });
