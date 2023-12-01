@@ -2,7 +2,7 @@
  *
  * https://adventofcode.com/2023/day/1
  *
- * What is the sum of all the calibration values?
+ * Given a polluted calibration document, filter each line for digits, restore the two digit calibration value, and then sum all the calibration values.
  *
  * - filter digits from lines of text
  * - identify the first and last digit in each line of text which combined make the two digit calibration value
@@ -29,7 +29,7 @@ const findDigits = (line: string): string[] | null => line.match(/\d/g);
   for await (const line of file.readLines()) {
     const digits = findDigits(line);
     if (digits) {
-      // duplicate digits for arrays of length 1 and combine first and last digit for arrays of length 2 or greater
+      // duplicate digit for arrays of length 1 and combine first and last digit for arrays of length 2 or greater
       const value: number  = Number(digits.map(
         (d, i, arr) => arr.length === 1
           ? `${d}${d}` 
