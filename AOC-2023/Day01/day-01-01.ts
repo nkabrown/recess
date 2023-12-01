@@ -10,19 +10,14 @@
  *
  * Read lines, filter digits, produce a calibration value, and then sum the calibration values of all lines.
  */
+import { fullPath } from '../utils.js';
 import { open } from 'node:fs/promises';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-
-// recreate Node globals for ESM modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 // filter digits from lines of text
 const findDigits = (line: string): string[] | null => line.match(/\d/g);
 
 (async () => {
-  const file = await open(path.join(__dirname, './calibration-document.txt'));
+  const file = await open(fullPath(import.meta.url, './calibration-document.txt'));
 
   const calibrationValues: number[] = [];
 

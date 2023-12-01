@@ -11,13 +11,8 @@
  *
  * Read lines, filter digits, produce a calibration value, and then sum the calibration values of all lines.
  */
+import { fullPath } from '../utils.js';
 import { open } from 'node:fs/promises';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-
-// recreate Node globals for ESM modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 const numeralsToNumbers: Record<string, string>= {
   'one': '1',
@@ -35,12 +30,12 @@ const mapNumeralsToNumbers = new Map<string, string>(Object.entries(numeralsToNu
 
 // filter digits in any form from lines of text, even overlapping numerals
 const findAllDigits = (line: string): string[] | null => Array.from(
-    line.matchAll(/(?=(\d|one|two|three|four|five|six|seven|eight|nine))/g),
-    arr => arr[1]
-  );
+  line.matchAll(/(?=(\d|one|two|three|four|five|six|seven|eight|nine))/g),
+  arr => arr[1]
+);
 
 (async () => {
-  const file = await open(path.join(__dirname, './calibration-document.txt'));
+  const file = await open(fullPath(import.meta.url, './calibration-document.txt'));
 
   const calibrationValues: number[] = [];
 
