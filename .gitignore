@@ -1,2 +1,5 @@
 node_modules/
 *.DS_Store
+
+# ignore TypeScript generated JS files
+AOC-2023/**/*.js
