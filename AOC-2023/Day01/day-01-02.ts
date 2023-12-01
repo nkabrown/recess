@@ -19,7 +19,7 @@ import { fileURLToPath } from 'node:url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const wordsToNumbers: Record<string, string>= {
+const numeralsToNumbers: Record<string, string>= {
   'one': '1',
   'two': '2',
   'three': '3',
@@ -31,7 +31,7 @@ const wordsToNumbers: Record<string, string>= {
   'nine': '9'
 };
 
-const mapWordsToNumbers = new Map<string, string>(Object.entries(wordsToNumbers));
+const mapNumeralsToNumbers = new Map<string, string>(Object.entries(numeralsToNumbers));
 
 // filter digits in any form from lines of text, even overlapping numerals
 const findAllDigits = (line: string): string[] | null => Array.from(
@@ -49,10 +49,10 @@ const findAllDigits = (line: string): string[] | null => Array.from(
     if (digits) {
       // duplicate digit for arrays of length 1 and combine first and last digit for arrays of length 2 or greater
       const value: number  = Number(digits
-        .map(d => mapWordsToNumbers.get(d) || d)                             
+        .map(d => mapNumeralsToNumbers.get(d) || d)
         .map(
           (d, i, arr) => arr.length === 1
-            ? `${d}${d}` 
+            ? `${d}${d}`
             : i === 0
               ? `${d}${arr[arr.length - 1]}`
               : null
