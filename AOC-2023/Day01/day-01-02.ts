@@ -30,8 +30,8 @@ const mapNumeralsToNumbers = new Map<string, string>(Object.entries(numeralsToNu
 
 // filter digits in any form from lines of text, even overlapping numerals
 const findAllDigits = (line: string): string[] | null => Array.from(
-  line.matchAll(/(?=(\d|one|two|three|four|five|six|seven|eight|nine))/g),
-  arr => arr[1]
+  line.matchAll(/(?=(?<digit>\d|one|two|three|four|five|six|seven|eight|nine))/g),
+  arr => arr.groups?.digit || ''
 );
 
 (async () => {
