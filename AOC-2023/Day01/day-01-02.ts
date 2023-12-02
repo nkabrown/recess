@@ -2,7 +2,8 @@
  *
  * https://adventofcode.com/2023/day/1
  *
- * Given a polluted calibration document, filter each line for digits (in numeral or numeric form), restore the two digit calibration value, and then sum all the calibration values.
+ * Given a calibration document containing polluted calibration values, filter each line for digits (in numeral or numeric form),
+ * restore the two digit calibration value, and then sum all the calibration values.
  *
  * - convert numerals to numeric digits
  * - filter digits from lines of text
