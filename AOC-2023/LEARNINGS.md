@@ -13,7 +13,7 @@ const __dirname = path.dirname(__filename);
 
 `Array.from` gives you a nice bit of control when creating a new array from an indexed collection. You can pass a mapping function as the second optional parameter.
 
-**How can you match overlapping words via Regex?**
+**How can you match overlapping words with Regex?**
 
 To search for matches to any digit in numeric or numeral form I initially wrote this regex: `/\d|one|two|three|four|five|six|seven|eight|nine/g`. The test data summed up correctly but when run on the entire input my sum was not correct and I eventually noticed the numerals could overlap and the numeral following the overlap was not being reflected in the list of digits for each line.
 
