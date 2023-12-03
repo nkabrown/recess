@@ -86,3 +86,33 @@ https://tc39.es/ecma262/#sec-regexp-prototype-matchall
 >matches the empty String immediately after the first b and therefore returns the array:
 >
 >["", "aaa"]
+
+## Day 02
+
+Today's puzzle lent itself to some good descriptive types:
+
+```typescript
+interface Bag {
+  red: number;
+  green: number;
+  blue: number;
+}
+
+type Draw = Partial<Bag>;
+
+interface Game {
+  id: number;
+  draws: Draw[];
+  totals: Bag;
+}
+```
+
+**Array.prototype.reduce()**
+
+My solution to today's puzzles was primarily just a series of reductions of my data into meaningful results. First reducing the text of a game and all it's draws into a game object that kept a running tally of the most cubes it had seen in any one draw. Reducing all the game ids or powers into a single sum or even calculating the power for a given minimum possible bag.
+
+`Array.prototype.reduce()` compresses an array of elements down into a single value.
+
+**Lookaheads, Lookbehinds, and Named Capturing Groups**
+
+(WIP)
