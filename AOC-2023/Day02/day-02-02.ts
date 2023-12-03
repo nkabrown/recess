@@ -4,7 +4,7 @@
  *
  * Given a record of games consisting of series of random draws of red, green, and blue cubes from a bag 
  * determine the fewest number of cubes of each color a bag would need to contain to make the game possible
- * and then multiply the number of cubes in this bag and then sum all of these powers.
+ * and then multiply the totals for each color in this bag together and then sum all of these powers.
  *
  * - parse each line into a game object with id and set of draws and specific bag totals
  * - reduce the draws in the game object to the known cube totals
