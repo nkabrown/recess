@@ -25,7 +25,8 @@ const findDigits = (line: string): string[] | null => line.match(/\d/g);
   for await (const line of file.readLines()) {
     const digits = findDigits(line);
     if (digits) {
-      // duplicate digit for arrays of length 1 and combine first and last digit for arrays of length 2 or greater
+      // duplicate digit for arrays of length 1
+      // combine first and last digit for arrays of length 2 or greater
       const value: number  = Number(digits.map(
         (d, i, arr) => arr.length === 1
           ? `${d}${d}` 

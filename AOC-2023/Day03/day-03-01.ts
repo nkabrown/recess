@@ -54,7 +54,6 @@ import { open } from 'node:fs/promises';
         }
       }
     }
-    console.log(number);
     if (number && isPartNumber) partNumbers.push(Number(number));
   }
 

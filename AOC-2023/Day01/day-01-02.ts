@@ -43,7 +43,8 @@ const findAllDigits = (line: string): string[] | null => Array.from(
   for await (const line of file.readLines()) {
     const digits = findAllDigits(line);
     if (digits) {
-      // duplicate digit for arrays of length 1 and combine first and last digit for arrays of length 2 or greater
+      // duplicate digit for arrays of length 1
+      // combine first and last digit for arrays of length 2 or greater
       const value: number  = Number(digits
         .map(d => mapNumeralsToNumbers.get(d) || d)
         .map(
