@@ -2,6 +2,8 @@
 
 ## Day 01
 
+I prefer to use ESM modules even in Node but this requires a little setup to work smoothly. In your `package.json` you must set the `"type": "module"` field. To get the full path to the current module you cannot relay on the Node built-in globals `__filename` and `__dirname`. They can easily be recreated (see below) but I opted to make a utility function since every file will need to load input.
+
 ```node
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -11,11 +13,11 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 ```
 
-`Array.from` gives you a nice bit of control when creating a new array from an indexed collection. You can pass a mapping function as the second optional parameter.
+`Array.from` gives you a nice bit of control when creating a new array from an indexed collection. You can pass a mapping function as the second optional parameter and every value to be added to the array is first passed through this function.
 
 **How can you match overlapping words with Regex?**
 
-To search for matches to any digit in numeric or numeral form I initially wrote this regex: `/\d|one|two|three|four|five|six|seven|eight|nine/g`. The test data summed up correctly but when run on the entire input my sum was not correct and I eventually noticed the numerals could overlap and the numeral following the overlap was not being reflected in the list of digits for each line.
+To search for matches to any digit in numeric or numeral form I initially wrote this regex: `/\d|one|two|three|four|five|six|seven|eight|nine/g`. The test data summed up correctly but when run on the entire input my sum was not correct and I eventually noticed that numerals could overlap and the numeral following the overlap was not being reflected in the list of digits for each line.
 
 For this test case "zoneight234", how can I create a Regex pattern that matches both "one" and "eight" since Regex matches consume matched characters, advancing the last index to the end of the match, before resuming the search.
 
@@ -111,7 +113,18 @@ interface Game {
 
 My solution to today's puzzles was primarily just a series of reductions of my data into meaningful results. First reducing the text of a game and all it's draws into a game object that kept a running tally of the most cubes it had seen in any one draw. Reducing all the game ids or powers into a single sum or even calculating the power for a given minimum possible bag.
 
-`Array.prototype.reduce()` compresses an array of elements down into a single value.
+`Array.prototype.reduce()` compresses an array of elements down into a single value. These values could be simple like a sum `142` or complex like a `Game` object:
+
+```json
+{
+  id: 5,
+  draws: [
+    { red: 6, blue: 1, green: 3 },
+    { blue: 2, red: 1, green: 2 }
+  ],
+  totals: { red: 6, green: 3, blue: 2 }
+}
+````
 
 **Lookaheads, Lookbehinds, and Named Capturing Groups**
 

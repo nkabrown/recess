@@ -1,7 +1,7 @@
 /*
  * AOC 2023 Day 04 - Part 01
  *
- * Given a list of scratchcards, for each scratch card find which of your numbers match the winning numbers. 
+ * Given a list of scratch cards, for each scratch card find which of your numbers match the winning numbers.
  * The first match is worth 1 point and each further match doubles the points. Sum up all the points for each scratch card.
  *
  */
