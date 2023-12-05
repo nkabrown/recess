@@ -2,7 +2,7 @@
 
 ## Day 01
 
-I prefer to use ESM modules even in Node but this requires a little setup to work smoothly. In your `package.json` you must set the `"type": "module"` field. To get the full path to the current module you cannot relay on the Node built-in globals `__filename` and `__dirname`. They can easily be recreated (see below) but I opted to make a utility function since every file will need to load input.
+I prefer to use ESM modules even in Node but this requires a little setup to work smoothly. In your `package.json` you must set the `"type": "module"` field. To get the full path to the current module you cannot rely on the Node built-in globals `__filename` and `__dirname`. They can easily be recreated (see below) but I opted to make a utility function since every file will need to load input.
 
 ```node
 import path from 'node:path';
@@ -115,7 +115,7 @@ My solution to today's puzzles was primarily just a series of reductions of my d
 
 `Array.prototype.reduce()` compresses an array of elements down into a single value. These values could be simple like a sum `142` or complex like a `Game` object:
 
-```json
+```js
 {
   id: 5,
   draws: [
