@@ -6,7 +6,7 @@
  *
  */
 import { fullPath, sum } from '../utils.js';
-import { open } from 'node:fs/promises';
+import { type FileHandle, open } from 'node:fs/promises';
 
 const calculateWinnings = (line: string): number => {
   let points: number = 0;
@@ -24,7 +24,7 @@ const calculateWinnings = (line: string): number => {
 };
 
 (async () => {
-  const file = await open(fullPath(import.meta.url, './scratchcards.txt'));
+  const file: FileHandle = await open(fullPath(import.meta.url, './scratchcards.txt'));
 
   let points: number[] = []
   for await (const line of file.readLines()) {

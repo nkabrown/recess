@@ -12,8 +12,8 @@
  *
  * Read lines, filter digits, produce a calibration value, and then sum the calibration values of all lines.
  */
-import { fullPath } from '../utils.js';
-import { open } from 'node:fs/promises';
+import { fullPath, sum } from '../utils.js';
+import { type FileHandle, open } from 'node:fs/promises';
 
 const numeralsToNumbers: Record<string, string>= {
   'one': '1',
@@ -36,7 +36,7 @@ const findAllDigits = (line: string): string[] | null => Array.from(
 );
 
 (async () => {
-  const file = await open(fullPath(import.meta.url, './calibration-document.txt'));
+  const file: FileHandle = await open(fullPath(import.meta.url, './calibration-document.txt'));
 
   const calibrationValues: number[] = [];
 
@@ -59,6 +59,6 @@ const findAllDigits = (line: string): string[] | null => Array.from(
     }
   }
   // sum up calibration values
-  const sum = calibrationValues.reduce((acc, val) => acc + val, 0);
-  console.log(sum);
+  const total = sum(calibrationValues);
+  console.log(total);
 })();

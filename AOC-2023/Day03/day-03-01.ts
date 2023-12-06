@@ -15,11 +15,11 @@
  *   - sum the part numbers
  *
  */
-import { fullPath } from '../utils.js';
-import { open } from 'node:fs/promises';
+import { fullPath, sum } from '../utils.js';
+import { type FileHandle, open } from 'node:fs/promises';
 
 (async () => {
-  const file = await open(fullPath(import.meta.url, './engine-schematic.txt'));
+  const file: FileHandle = await open(fullPath(import.meta.url, './engine-schematic.txt'));
 
   const partNumbers: number[] = [];
   const matrix: string[][] = [];
@@ -58,6 +58,6 @@ import { open } from 'node:fs/promises';
   }
 
   // sum the part numbers
-  const sum = partNumbers.reduce((sum, num) => sum += num, 0);
-  console.log(sum);
+  const total = sum(partNumbers);
+  console.log(total);
 })();

@@ -12,11 +12,11 @@
  * - sum the powers of all possible games
  * 
  */
-import { fullPath } from '../utils.js';
-import { open } from 'node:fs/promises';
+import { fullPath, sum } from '../utils.js';
+import { type FileHandle, open } from 'node:fs/promises';
 
 interface Bag {
-  red: number; 
+  red: number;
   green: number;
   blue: number;
 }
@@ -30,7 +30,7 @@ interface Game {
 }
 
 (async () => {
-  const file = await open(fullPath(import.meta.url, './game-records.txt'));
+  const file: FileHandle = await open(fullPath(import.meta.url, './test-data.txt'));
 
   const powers: number[] = [];
 
@@ -68,12 +68,12 @@ interface Game {
     }, {id: 0, draws: [], totals: {red: 0, green: 0, blue: 0}} as Game);
 
     // multiply known cube totals to get the power of the minimum possible bag
-    const power = Object.values(game.totals).reduce((power: number, total: number): number => power * total, 1); 
+    const power: number = Object.values(game.totals).reduce((power: number, total: number): number => power * total, 1);
 
     powers.push(power);
   }
 
   // sum the powers of all minimum possible games
-  const sum = powers.reduce((sum: number, power: number): number => sum + power, 0);
-  console.log(sum);
+  const total = sum(powers);
+  console.log(total);
 })();

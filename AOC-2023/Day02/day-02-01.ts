@@ -16,7 +16,7 @@ import { fullPath } from '../utils.js';
 import { open } from 'node:fs/promises';
 
 interface Bag {
-  red: number; 
+  red: number;
   green: number;
   blue: number;
 }
