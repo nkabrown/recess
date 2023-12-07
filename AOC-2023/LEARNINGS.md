@@ -124,8 +124,18 @@ My solution to today's puzzles was primarily just a series of reductions of my d
   ],
   totals: { red: 6, green: 3, blue: 2 }
 }
-````
+```
 
 **Lookaheads, Lookbehinds, and Named Capturing Groups**
 
 (WIP)
+
+## Day 03
+
+**Interpolating values into RegEx**
+
+It's possible to interpolate values into an regex pattern by constructing a RegEx object. Just remember to double escape shorthand character classes for example.
+
+```js
+const rowRange = new RegExp(`(\\b${i-1}\\b|\\b${i}\\b|\\b${i+1}\\b)`);
+```
