@@ -13,7 +13,7 @@
  * 
  */
 import { fullPath } from '../utils.js';
-import { open } from 'node:fs/promises';
+import { type FileHandle, open } from 'node:fs/promises';
 
 interface Bag {
   red: number;
@@ -30,7 +30,7 @@ interface Game {
 }
 
 (async () => {
-  const file = await open(fullPath(import.meta.url, './game-records.txt'));
+  const file: FileHandle = await open(fullPath(import.meta.url, './game-records.txt'));
 
   const bag: Bag = { red: 12, green: 13, blue: 14 };
   const possibleGames: Game[] = [];
@@ -42,7 +42,7 @@ interface Game {
     .map(str => str.trim())
     .reduce((game: Game, str, idx): Game => {
       if (idx === 0) {
-        const match = str.match(/(?<=Game\s)\d+\b/g);
+        const match: RegExpMatchArray | null = str.match(/(?<=Game\s)\d+\b/g);
         if (match) game.id = Number(match[0]);
       } else {
         // transform string of '6 red, 1 blue, 3 green' into a Draw object

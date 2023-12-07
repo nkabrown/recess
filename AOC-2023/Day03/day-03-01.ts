@@ -10,7 +10,7 @@
  *   - scan the rows for digits
  *   - for each digit check the row for adjacent symbols and digits
  *   - for each digit check the adjacent columns, even diagonally, for symbols
- *   - collect  adjacent digits in a row into a number
+ *   - collect adjacent digits in a row into a number
  *   - mark numbers adjecent to a symbol in the row or columns as part numbers
  *   - sum the part numbers
  *
@@ -37,6 +37,7 @@ import { type FileHandle, open } from 'node:fs/promises';
     const nextRow = matrix[i + 1] || [];
     let number: string = '';
     let isPartNumber: boolean = false;
+
     for (let j = 0; j < matrix[i].length; j++) {
       // if character is a digit
       if (matrix[i][j].match(/\d/)) {
