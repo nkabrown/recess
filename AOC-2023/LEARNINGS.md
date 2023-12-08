@@ -51,11 +51,11 @@ The array returned by `Regex.prototype.exec` has a number of properties set on i
 
 ```node
 [
-  [ '', 'one', index: 1, input: 'zoneight234', groups: [Object: null prototype] { digit: 'one' } ],
-  [ '', 'eight', index: 3, input: 'zoneight234', groups: [Object: null prototype] { digit: 'eight' } ],
-  [ '', '2', index: 8, input: 'zoneight234', groups: [Object: null prototype] { digit: '2' } ],
-  [ '', '3', index: 9, input: 'zoneight234', groups: [Object: null prototype] { digit: '3' } ],
-  [ '', '4', index: 10, input: 'zoneight234', groups: [Object: null prototype] { digit: '4' } ]
+  [ '', 'one', index: 1, input: 'zoneight234', groups: { digit: 'one' } ],
+  [ '', 'eight', index: 3, input: 'zoneight234', groups: { digit: 'eight' } ],
+  [ '', '2', index: 8, input: 'zoneight234', groups: { digit: '2' } ],
+  [ '', '3', index: 9, input: 'zoneight234', groups: { digit: '3' } ],
+  [ '', '4', index: 10, input: 'zoneight234', groups: { digit: '4' } ]
 ]
 ```
 
@@ -134,7 +134,7 @@ My solution to today's puzzles was primarily just a series of reductions of my d
 
 **Interpolating values into RegEx**
 
-It's possible to interpolate values into an regex pattern by constructing a RegEx object. Just remember to double escape shorthand character classes for example.
+It's possible to interpolate values into an regex pattern by constructing a RegEx object. Just remember to escape shorthand character classes for example.
 
 ```js
 const rowRange = new RegExp(`(\\b${i-1}\\b|\\b${i}\\b|\\b${i+1}\\b)`);
