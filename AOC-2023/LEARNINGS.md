@@ -31,6 +31,8 @@ My solution included swapping out `line.match()` with `line.matchAll()` and usin
 
 (What exactly is a zero-width lookahead assertion and why did it work here?)
 
+https://www.rexegg.com/regex-lookarounds.html#overlapping
+
 `'zoneight234'.matchAll(/(?=(\d|one|two|three|four|five|six|seven|eight|nine))/g)` created output that matched all digits including overlapping numerals:
 
 ```node
