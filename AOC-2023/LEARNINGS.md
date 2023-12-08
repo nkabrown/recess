@@ -1,5 +1,11 @@
 # 2023 Advent of Code Learnings
 
+The nature of the input data, files consisting of lines of text, means that regex often seems the perfect tool to accomplish subtasks needed for puzzle solutions. As I'm learning more about regular expressions this year I've found these resources helpful:
+
+* [MDN JS Regular Expressions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions)
+* [Rex Egg Tutorials](https://www.rexegg.com/)
+* [Regex Buddy Tutorials](https://www.regular-expressions.info/tutorial.html)
+
 ## Day 01
 
 I prefer to use ESM modules even in Node but this requires a little setup to work smoothly. In your `package.json` you must set the `"type": "module"` field. To get the full path to the current module you cannot rely on the Node built-in globals `__filename` and `__dirname`. They can easily be recreated (see below) but I opted to make a utility function since every file will need to load input.
